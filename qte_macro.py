@@ -1,11 +1,11 @@
 """
-Violence District QTE Auto-Skillcheck Macro
-============================================
-Ultra-low latency Windows GDI BitBlt screen capture and DirectInput SendInput
+Violence District QTE Auto-Skillcheck Macro (Lunar Tear)
+=========================================================
+Ultra-low latency multi-monitor screen capture and DirectInput SendInput simulation
 for Roblox "Violence District" Quick-Time Events (Dead by Daylight style skill checks).
 
 Features:
-- Sub-millisecond (<0.5ms) frame capture & analysis via persistent GDI DIBSection
+- Sub-millisecond (<1ms) frame capture & analysis via MSS multi-monitor engine
 - Hardware DirectInput scancode 0x39 for Spacebar simulation (anti-cheat compatible)
 - High-contrast polar analysis for circular ring, white success patch, and red needle
 - Passive GetAsyncKeyState hotkeys: F1 (Toggle Pause/Active), F2 (Clean Exit)
@@ -24,7 +24,13 @@ import sys
 import json
 import argparse
 from typing import Optional, Tuple, Dict, Any, List
-import mss
+
+try:
+    import mss
+except ImportError:
+    print("[ERROR] Required dependency 'mss' is missing.")
+    print("Please install requirements using: pip install -r requirements.txt")
+    sys.exit(1)
 
 _cached_hdesk = None
 
@@ -41,7 +47,6 @@ if hasattr(sys.stdout, 'reconfigure'):
 # ============================================================================
 
 user32 = ctypes.windll.user32
-gdi32 = ctypes.windll.gdi32
 
 ULONG_PTR = ctypes.c_size_t
 
@@ -87,32 +92,10 @@ class INPUT(ctypes.Structure):
 user32.SendInput.argtypes = [wintypes.UINT, ctypes.POINTER(INPUT), ctypes.c_int]
 user32.SendInput.restype = wintypes.UINT
 
-class BITMAPINFOHEADER(ctypes.Structure):
-    _fields_ = [
-        ('biSize', wintypes.DWORD),
-        ('biWidth', wintypes.LONG),
-        ('biHeight', wintypes.LONG),
-        ('biPlanes', wintypes.WORD),
-        ('biBitCount', wintypes.WORD),
-        ('biCompression', wintypes.DWORD),
-        ('biSizeImage', wintypes.DWORD),
-        ('biXPelsPerMeter', wintypes.LONG),
-        ('biYPelsPerMeter', wintypes.LONG),
-        ('biClrUsed', wintypes.DWORD),
-        ('biClrImportant', wintypes.DWORD)
-    ]
-
-class BITMAPINFO(ctypes.Structure):
-    _fields_ = [
-        ('bmiHeader', BITMAPINFOHEADER),
-        ('bmiColors', wintypes.DWORD * 3)
-    ]
-
 INPUT_KEYBOARD = 1
 KEYEVENTF_SCANCODE = 0x0008
 KEYEVENTF_KEYUP = 0x0002
 SPACEBAR_SCANCODE = 0x39  # DirectInput hardware scancode for Spacebar
-SRCCOPY = 0x00CC0020
 
 # Virtual Key Codes
 VK_MAP = {
@@ -1401,7 +1384,7 @@ def run_macro(config_path: str = "config.json") -> None:
     was_present = False
 
     print("=" * 68)
-    print("  Violence District QTE Auto-Skillcheck Macro (Multi-Monitor)")
+    print("  Lunar Tear // Violence District QTE Auto-Skillcheck Macro")
     print("=" * 68)
     print(f"  [Primary Display] : {primary_mon['width']}x{primary_mon['height']} at ({primary_mon['left']}, {primary_mon['top']})")
     print(f"  [Target Center]   : {center_mode}")
@@ -1514,7 +1497,7 @@ def run_macro(config_path: str = "config.json") -> None:
             pass
         keyboard.release_all()
         capture.close()
-        print("[SHUTDOWN] Cleanup complete. Exited cleanly.")
+        print("[SHUTDOWN] Lunar Tear cleanup complete. Exited cleanly.")
 
 # ============================================================================
 # Offline Screenshot Verification Test Suite (--test)
@@ -1553,6 +1536,7 @@ def run_tests(image_paths: Optional[List[str]] = None) -> bool:
 
     if not image_paths:
         print("[TEST ERROR] No test screenshot images found.")
+        print("Usage: python qte_macro.py --test <path/to/screenshot.png>")
         return False
 
     print("=" * 72)

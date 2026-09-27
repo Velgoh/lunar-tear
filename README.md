@@ -1,12 +1,12 @@
 # Lunar Tear // Violence District QTE Auto-Skillcheck
 
-**Lunar Tear** is a lightweight, ultra-low latency automated QTE (Quick-Time Event) skillcheck macro for *Violence District* (Roblox). It utilizes persistent Windows GDI DIBSection capture and DirectInput hardware simulation to hit skill checks cleanly and consistently.
+**Lunar Tear** is a lightweight, ultra-low latency automated QTE (Quick-Time Event) skillcheck macro for *Violence District* (Roblox). It utilizes multi-monitor screen capture and DirectInput hardware simulation to hit skill checks cleanly and consistently.
 
 ---
 
 ## Features
 
-* **Sub-Millisecond Frame Capture**: Persistent Windows GDI DIBSection memory buffer captures and analyzes frames with sub-millisecond overhead (<0.5ms).
+* **Sub-Millisecond Frame Capture**: High-speed multi-monitor screen capture powered by MSS with interactive desktop attachment for minimal latency (<1ms).
 * **Hardware DirectInput Actuation**: Simulates physical Spacebar presses via DirectInput scancode `0x39` for anti-cheat-safe input handling.
 * **Polar Coordinate Detection**: High-contrast radial scanning isolates the circular QTE ring, tracks the rotating needle, and detects the white success zone.
 * **Passive Hotkeys**: Seamlessly pause or resume with **F1**, or exit cleanly with **F2** using non-blocking asynchronous key polling.
@@ -46,7 +46,7 @@
 | Hotkey | Function | Description |
 | :--- | :--- | :--- |
 | **F1** | **Toggle Active / Pause** | Enables or pauses automatic skillcheck detection. |
-| **F2** | **Exit** | Gracefully releases GDI screen resources and shuts down the macro. |
+| **F2** | **Exit** | Gracefully releases screen capture resources and shuts down the macro. |
 
 ---
 
