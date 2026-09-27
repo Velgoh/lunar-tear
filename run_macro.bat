@@ -1,9 +1,9 @@
 @echo off
-title Lunar Tear // Violence District QTE Macro
+title Lunar Tear // VD
 cd /d "%~dp0"
 
 echo ===================================================
-echo   Starting Lunar Tear QTE Auto-Macro...
+echo   Starting Lunar Tear...
 echo ===================================================
 echo.
 
