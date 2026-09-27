@@ -1,0 +1,18 @@
+{
+    "resolution": null,
+    "center_override": null,
+    "top_bar_offset": 36,
+    "crop_size": 300,
+    "hit_position": "start",
+    "lead_degrees": 0.0,
+    "offset_degrees": 0.0,
+    "latency_ms": 0.0,
+    "min_needle_score": 35.0,
+    "hold_duration_ms": 35,
+    "debounce_seconds": 0.08,
+    "poll_interval_ms": 1,
+    "trigger_delay_ms": 0,
+    "toggle_key": "F1",
+    "exit_key": "F2",
+    "status_interval_ms": 250
+}
